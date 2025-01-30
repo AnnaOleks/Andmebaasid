@@ -4,3 +4,20 @@ Andmetüüp:
 3) Loogika (bit, bool, boolean, true/falce)
 4) Küüpäev (date/time, date, time)
 
+-------------------------------------
+
+Piirangud / ограничения
+1) PRIMARY KEY - Это атрибут (или комбинация атрибутов), который уникально опраеделяет строку. Уникальность определения каждой строки в таблице
+2) FOREIGN KEY - связь с первичным ключем другой таблицы
+3) NOT NULL - не может быть пустым
+4) UNIQUE - уникальность записи
+5) CHECK - выбор
+
+-------------------------------------
+
+SQL - Structure Qery Language 
+1) DDL - Data Definition Language - CREATE TABLE, ALTER TABLE, DROP TABLE
+2) DML - Data Manipulation Language - INSERT INTO, UPDATE, DELETE
+
+SQL Server Managment Studio
+XAMPP/phpMyAdmin
