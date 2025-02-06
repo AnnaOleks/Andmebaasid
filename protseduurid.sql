@@ -93,18 +93,6 @@ autor varchar(25),
 kirjeldus text
 )
 
-insert into uudised(uudiseTeema, kkupaev,autor,kirjeldus)
-VALUES(
-'udune ilm','2025-02-06','postimees','lõunani on udune ilm')
-
-BEGIN
-
-insert into uudised(
-uudiseTeema, kkupaev,autor,kirjeldus)
-VALUES(
-uusTeema,paev,autor,kirjeldus);
-SELECT*from uudised;
-
-END;
+--protseduurid README failis
 
 CALL lisauudis('windows11','2025-02-06','õpetaja Pant','w11 ei tööta multimeedia klassis');
