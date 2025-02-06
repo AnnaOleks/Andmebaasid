@@ -82,3 +82,29 @@ SELECT*FROM uudised
 WHERE uudiseTeema LIKE @taht+'%'; 
 END;
 --% - "все остальные буквы"
+EXEC otsingUudiseTeema 'w';
+
+--XAMPP--
+CREATE TABLE uudised(
+uudisID int PRIMARY KEY AUTO_INCREMENT,
+uudiseTeema varchar(50),
+kkupaev date,
+autor varchar(25),
+kirjeldus text
+)
+
+insert into uudised(uudiseTeema, kkupaev,autor,kirjeldus)
+VALUES(
+'udune ilm','2025-02-06','postimees','lõunani on udune ilm')
+
+BEGIN
+
+insert into uudised(
+uudiseTeema, kkupaev,autor,kirjeldus)
+VALUES(
+uusTeema,paev,autor,kirjeldus);
+SELECT*from uudised;
+
+END;
+
+CALL lisauudis('windows11','2025-02-06','õpetaja Pant','w11 ei tööta multimeedia klassis');
