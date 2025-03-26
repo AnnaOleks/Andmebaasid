@@ -89,3 +89,43 @@ WHERE autoID=7;
 
 SELECT * FROM autod;
 SELECT * FROM logi;
+
+---------------------------------------------------------
+
+create database triger2tabelid;
+use triger2tabelid;
+
+Create table linnad(
+linnID int identity(1,1) PRIMARY KEY,
+linnanimi varchar(15),
+rahvaarv int);
+
+Create table logi(
+id int identity(1,1) PRIMARY KEY,
+aeg DATETIME,
+toiming varchar(100),
+andmed text
+);
+
+CREATE TABLE maakond(
+    maakondID int primary key identity(1,1),
+    maakond varchar(100) UNIQUE,
+  pindala int);
+    
+INSERT INTO maakond(maakond)
+VALUES ('Harjumaa');
+INSERT INTO maakond(maakond)
+VALUES ('Pärnumaa');
+
+SELECT * FROM maakond
+
+ALTER TABLE linnad ADD maakondID int;
+ALTER TABLE linnad ADD CONSTRAINT fk_maakond
+FOREIGN KEY (maakondID) References maakond(maakondID) 
+
+SELECT * FROM linnad;
+SELECT * FROM maakond;
+
+INSERT INTO linnad(linnanimi, rahvaarv, maakondID)
+VALUES ('Tallinn', 60000, 100)
+
