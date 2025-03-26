@@ -129,3 +129,27 @@ SELECT * FROM maakond;
 INSERT INTO linnad(linnanimi, rahvaarv, maakondID)
 VALUES ('Tallinn', 60000, 100)
 
+--disable
+CREATE TRIGGER linnalisamine
+ON linnad
+FOR INSERT
+AS INSERT INTO logi(aeg, toiming, andmed)
+SELECT 
+GETDATE(),
+'on tehtud INSERT',
+CONCAT(m.maakond, ', ', inserted.linnanimi, ', ', inserted.rahvaarv)
+FROM inserted
+INNER JOIN maakond m ON m.maakondID=inserted.maakondID;
+
+--trigeri kustustamine
+drop trigger linnalisamine;
+
+--puhasta logi tabeli
+DELETE FROM logi;
+
+--kontroll
+INSERT INTO linnad(linnanimi, rahvaarv, maakondID)
+VALUES ('Saue', 20000, 2)
+
+SELECT * FROM logi;
+SELECT * FROM linnad;
