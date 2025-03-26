@@ -108,9 +108,9 @@ andmed text
 );
 
 CREATE TABLE maakond(
-    maakondID int primary key identity(1,1),
-    maakond varchar(100) UNIQUE,
-  pindala int);
+maakondID int primary key identity(1,1),
+maakond varchar(100) UNIQUE,
+pindala int);
     
 INSERT INTO maakond(maakond)
 VALUES ('Harjumaa');
@@ -184,16 +184,27 @@ AS INSERT INTO logi(aeg, toiming, andmed, kasutaja)
 SELECT 
 GETDATE(),
 'on tehtud UPDATE',
-CONCAT('vanad andmed: ', m1.maakond, ', ', deleted.linnanimi, ', ', deleted.rahvaarv, 'uued andmed: ', m2.maakond, ', ', inserted.linnanimi, ', ', inserted.rahvaarv),
+CONCAT('vanad andmed: ', m1.maakond,', ', m1.pindala, ', ', deleted.linnanimi, ', ', deleted.rahvaarv, 'uued andmed: ', m2.maakond, ', ', m2.pindala, ', ', inserted.linnanimi, ', ', inserted.rahvaarv),
 SUSER_NAME()
 FROM deleted
 INNER JOIN inserted ON deleted.linnID=inserted.linnID
 INNER JOIN maakond m1 ON m1.maakondID=deleted.maakondID
 INNER JOIN maakond m2 ON m2.maakondID=inserted.maakondID;
 
+--TRIGGERI kustustamine 
+drop trigger linnauuendamine;
+
 --kontroll
-UPDATE linnad SET maakondID=1
+UPDATE linnad SET maakondID=2
 WHERE linnID=4;
 
 SELECT * FROM linnad;
 SELECT * FROM logi;
+
+UPDATE maakond SET pindala=5000
+WHERE maakondID=2;
+
+SELECT * FROM maakond;
+SELECT * FROM linnad;
+SELECT * FROM logi;
+
