@@ -153,3 +153,47 @@ VALUES ('Saue', 20000, 2)
 
 SELECT * FROM logi;
 SELECT * FROM linnad;
+
+ALTER TABLE logi 
+ADD kasutaja varchar(25);
+
+CREATE TRIGGER linnakustutamie
+ON linnad
+FOR DELETE
+AS INSERT INTO logi(aeg, toiming, andmed, kasutaja)
+SELECT 
+GETDATE(),
+'on tehtud DELETE',
+CONCAT(m.maakond, ', ', deleted.linnanimi, ', ', deleted.rahvaarv),
+SUSER_NAME()
+FROM deleted
+INNER JOIN maakond m ON m.maakondID=deleted.maakondID;
+
+SELECT * FROM linnad;
+
+DELETE FROM linnad
+WHERE linnID=5;
+
+SELECT * FROM linnad;
+SELECT * FROM logi;
+
+CREATE TRIGGER linnauuendamine
+ON linnad
+FOR UPDATE
+AS INSERT INTO logi(aeg, toiming, andmed, kasutaja)
+SELECT 
+GETDATE(),
+'on tehtud UPDATE',
+CONCAT('vanad andmed: ', m1.maakond, ', ', deleted.linnanimi, ', ', deleted.rahvaarv, 'uued andmed: ', m2.maakond, ', ', inserted.linnanimi, ', ', inserted.rahvaarv),
+SUSER_NAME()
+FROM deleted
+INNER JOIN inserted ON deleted.linnID=inserted.linnID
+INNER JOIN maakond m1 ON m1.maakondID=deleted.maakondID
+INNER JOIN maakond m2 ON m2.maakondID=inserted.maakondID;
+
+--kontroll
+UPDATE linnad SET maakondID=1
+WHERE linnID=4;
+
+SELECT * FROM linnad;
+SELECT * FROM logi;
